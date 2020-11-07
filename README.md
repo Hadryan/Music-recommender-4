@@ -29,6 +29,12 @@ $ pip install -r requirements.txt
 $ python music.py
 ```
 
+4. Do not forget to output the installed packages.
+
+```bash
+$ pip freeze > requirements.txt
+```
+
 ## Folder Structure (changes will happen)
 
 - `data`: `provide description`.
