@@ -39,7 +39,7 @@ $ pip freeze > requirements.txt
 
 - `data`: `provide description`.
 
-- `src`: stores the code for data processing + node labelling...
+- `src`: stores the code for data processing + node labelling + etc...
 
 - `src/process`: stores the code for data normalization + processing.
 
