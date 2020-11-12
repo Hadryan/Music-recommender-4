@@ -1,5 +1,5 @@
-data/*.csv
-
+data/raw_genres.csv
+data/tracks.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

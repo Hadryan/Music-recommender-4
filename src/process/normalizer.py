@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 class Normalizer:
     def __init__(self):
@@ -26,9 +26,8 @@ class Normalizer:
 
         return genres
 
-    # def remove_duplicates(self):
-
-    # def to_csv(self):
+    def to_csv(self, df):
+        df.to_csv('./data/sampled_tracks.csv')
 
     def get_genre_names(self, row_genres):
         """
@@ -49,11 +48,23 @@ class Normalizer:
         Columns: track title, artist name, release date, genres, all genres
         """
 
+        self.tracks.drop(
+            self.tracks[self.tracks['genres'] == '[]'].index, inplace=True)
+
+        self.tracks['date_released'].replace('', np.nan, inplace=True)
+        self.tracks.dropna(subset=['date_released'], inplace=True)
+
         self.tracks['genres'] = self.tracks.apply(
             lambda row: self.get_genre_names(row['genres']), axis=1)
 
         self.tracks['genres_all'] = self.tracks.apply(
             lambda row: self.get_genre_names(row['genres_all']), axis=1)
 
-        # tracks_sel_columns = self.tracks[[
-        #     'title', 'name (artist)', 'date_released', 'genres', 'genres_all']]
+        dropped_dups = self.tracks.drop_duplicates('title')
+
+        sample = dropped_dups.sample(n=2000)
+
+        tracks_sel_columns = sample[[
+            'title', 'name', 'date_released', 'genres_all']]
+
+        self.to_csv(tracks_sel_columns)
