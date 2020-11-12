@@ -35,6 +35,12 @@ $ python music.py
 $ pip freeze > requirements.txt
 ```
 
+## Setup Neo4j Environment
+
+1. Create a Graph Database at `bolt://localhost:11003` with the password: `123mudar`
+
+2. Create a database with the name: `musicrecommender`
+
 ## Folder Structure (changes will happen)
 
 - `data`: `provide description`.
@@ -42,5 +48,9 @@ $ pip freeze > requirements.txt
 - `src`: stores the code for data processing + node labelling + etc...
 
 - `src/process`: stores the code for data normalization + processing.
+
+- `src/neo4j`: stores the code responsible to control operation on Neo4j
+
+- `src/neo4j`: stores the models (Person, Music)
 
 - `./music.py`: the heart of the application.
