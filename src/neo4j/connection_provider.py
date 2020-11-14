@@ -3,6 +3,7 @@ from src.models.person import Person
 
 class ConnectionProvider:
     __instance = None
+    __session = None
 
     def __init__(self):
         if ConnectionProvider.__instance:
@@ -10,10 +11,13 @@ class ConnectionProvider:
         else:
             ConnectionProvider.__instance = self
             self.driver = GraphDatabase.driver('bolt://localhost:11003', auth=('neo4j', '123mudar'))
+            ConnectionProvider.__session = self.driver.session(database='musicrecommender')
 
     @staticmethod
     def getDb():
-        return ConnectionProvider.getInstance().driver.session(database='musicrecommender')
+        if not ConnectionProvider.__session:
+            ConnectionProvider()
+        return ConnectionProvider.__session
 
     @staticmethod
     def getInstance():
@@ -21,13 +25,7 @@ class ConnectionProvider:
             ConnectionProvider()
         return ConnectionProvider.__instance
 
-
     @staticmethod
     def create_node(klass):
         cypher = f'CREATE (n:{type(klass).__name__} {klass.params_str()})'
         ConnectionProvider.getDb().run(cypher)
-
-
-if __name__ == "__main__":
-    person = Person({'name': 'Eduardo', 'birth_date': '25/12/1997'})
-    ConnectionProvider.create_node(person)
