@@ -23,13 +23,7 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-3. Start the script.
-
-```bash
-$ python music.py
-```
-
-4. Do not forget to output the installed packages.
+3. Do not forget to output the installed packages.
 
 ```bash
 $ pip freeze > requirements.txt
@@ -40,6 +34,23 @@ $ pip freeze > requirements.txt
 1. Create a Graph Database at `bolt://localhost:11003` with the password: `123mudar`
 
 2. Create a database with the name: `musicrecommender`
+
+## Running
+
+Generate the csv with the tracks
+```bash
+$ python music.py
+```
+
+Generate the persons on Neo4j
+```bash
+$ python -m src.neo4j.create_persons
+```
+
+Generate the musics on Neo4j (must generate the tracks csv before)
+```bash
+$ python -m src.neo4j.create_musics
+```
 
 ## Folder Structure (changes will happen)
 
