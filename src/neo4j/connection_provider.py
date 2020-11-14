@@ -29,3 +29,9 @@ class ConnectionProvider:
     def create_node(klass):
         cypher = f'CREATE (n:{type(klass).__name__} {klass.params_str()})'
         ConnectionProvider.getDb().run(cypher)
+
+    @staticmethod
+    def cleanup_nodes(klass):
+        print()
+        cypher = f'MATCH (n:{klass.__name__}) DELETE n'
+        ConnectionProvider.getDb().run(cypher)
