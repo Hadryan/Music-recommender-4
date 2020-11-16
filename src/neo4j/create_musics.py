@@ -11,8 +11,8 @@ class MusicCreator:
         tracks = pd.read_csv('./data/sampled_tracks.csv', sep=',')
         for track in tracks.iterrows():
             params = {}
-            params['name'] = track[1]['track_name']
-            params['artist'] = track[1]['artist_name']
+            params['name'] = track[1]['name']
+            params['artist'] = track[1]['name']
             params['release_date'] = track[1]['release_date']
             genres = track[1]['genres'][1:len(track[1]['genres'])-1]
             params['genres'] = genres.replace('\'', '').split(',')
