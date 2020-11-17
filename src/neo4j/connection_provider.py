@@ -31,7 +31,18 @@ class ConnectionProvider:
         ConnectionProvider.getDb().run(cypher)
 
     @staticmethod
+    def create_edge(origin, destiny, edge):
+        cypher = f'MATCH (origin: {type(origin).__name__} {origin.params_str()}), (destiny: {type(destiny).__name__} {destiny.params_str()})\n'
+        cypher += f'CREATE (origin)-[r: {type(edge).__name__} {edge.params_str()}]->(destiny)'
+        ConnectionProvider.getDb().run(cypher)
+
+    @staticmethod
     def cleanup_nodes(klass):
         print()
         cypher = f'MATCH (n:{klass.__name__}) DELETE n'
+        ConnectionProvider.getDb().run(cypher)
+
+    @staticmethod
+    def cleanup_edges(klass):
+        cypher = f'MATCH ()-[r:{klass.__name__}]->() DELETE r'
         ConnectionProvider.getDb().run(cypher)
