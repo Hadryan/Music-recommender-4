@@ -2,6 +2,7 @@ from neo4j import GraphDatabase
 from src.models.person import Person
 from src.models.listened import Listened
 from random import randrange, random
+import numpy as np
 
 class ConnectionProvider:
     __instance = None
@@ -42,7 +43,7 @@ class ConnectionProvider:
     def create_edge_to_random_music(person):
         r = random()
         if(r > 0.7):
-            music_id = randrange(1, 99)
+            music_id = randrange(200, 300)
             cypher = f'MATCH (origin: Person {person.params_str()}), (destiny: Music) where id(destiny)={music_id}\n'
             cypher += f'CREATE (origin)-[r: Liked]->(destiny)'
             ConnectionProvider.getDb().run(cypher)
@@ -51,10 +52,22 @@ class ConnectionProvider:
             ConnectionProvider.getDb().run(cypher)
 
         for _ in range(randrange(1, 10)):
-            music_id = randrange(1, 99)
+            music_id = randrange(200, 300)
             cypher = f'MATCH (origin: Person {person.params_str()}), (destiny: Music) where id(destiny)={music_id}\n'
             cypher += f'CREATE (origin)-[r: Listened {Listened(randrange(1, 5)).params_str()}]->(destiny)'
             ConnectionProvider.getDb().run(cypher)
+
+    @staticmethod
+    def get_musics_listened_popularity(person_id):
+        cypher = f'match (p: Person)-[r:Listened]-> (m: Music) where id(p)={person_id} return m.popularity'
+        musics_listened = ConnectionProvider.getDb().run(cypher)
+        return [m.value()/100 for m in musics_listened]
+
+    @staticmethod
+    def get_musics_popularity(music_ids):
+        cypher = f'match (m: Music) where id(m) in {list(map(int, music_ids))} return m.popularity'
+        musics_listened = ConnectionProvider.getDb().run(cypher)
+        return [m.value()/100 for m in musics_listened]
 
     @staticmethod
     def cleanup_nodes(klass):
