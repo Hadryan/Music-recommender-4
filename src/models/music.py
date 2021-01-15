@@ -5,6 +5,7 @@ class Music:
         self.release_date = params.get('release_date')
         self.popularity = params.get('popularity')
         self.genres = params.get('genres') or []
+        self.popularity = params.get('popularity')
 
     @staticmethod
     def get_from_csv_row(csv_row):
@@ -18,4 +19,4 @@ class Music:
         return Music(params)
 
     def params_str(self):
-        return "{{name: \"{}\", artist: \"{}\", release_date: \"{}\", popularity: \"{}\", genres: {}}}".format(self.name, self.artist, self.release_date, self.popularity, self.genres)
+        return "{{name: \"{}\", artist: \"{}\", release_date: \"{}\", genres: {}, popularity: {}}}".format(self.name, self.artist, self.release_date, self.genres, self.popularity)
