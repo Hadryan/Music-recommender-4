@@ -14,7 +14,7 @@ class MusicCreator:
         for track in tracks.iterrows():
             music = Music.get_from_csv_row(track[1])
             ConnectionProvider.create_node(music)
-            print('.')
+            # print('.')
 
 
 if __name__ == "__main__":

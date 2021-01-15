@@ -1,0 +1,3 @@
+match (m1:Music)-[r:Similarity]- (m2:Music) where id(m1)=7 return m2 order by r.weight desc limit 25
+
+    match (p: Person)-[r:Listened]-> (m: Music) where id(p)=516 return m order by r.times desc limit 1

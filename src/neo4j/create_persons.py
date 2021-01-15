@@ -22,7 +22,7 @@ class PersonCreator:
             person = Person(params)
             ConnectionProvider.create_node(person)
             ConnectionProvider.create_edge_to_random_music(person)
-            print('.')
+            # print('.')
 
 
 if __name__ == "__main__":

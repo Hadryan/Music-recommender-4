@@ -24,7 +24,7 @@ class EdgeCreator:
                 weight = Weighter.to([music, musics[j+1]])
                 similarity = Similarity(weight)
                 ConnectionProvider.create_edge(music, musics[j+1], similarity)
-                print('.')
+                # print('.')
             i+=1
 
 

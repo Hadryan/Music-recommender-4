@@ -66,3 +66,8 @@ class ConnectionProvider:
     def cleanup_edges(klass):
         cypher = f'MATCH ()-[r:{klass.__name__}]->() DELETE r'
         ConnectionProvider.getDb().run(cypher)
+
+    @staticmethod
+    def cleanup():
+        cypher = f'MATCH (n) DETACH DELETE n'
+        ConnectionProvider.getDb().run(cypher)

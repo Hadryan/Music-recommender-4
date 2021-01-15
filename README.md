@@ -37,21 +37,21 @@ $ pip freeze > requirements.txt
 
 ## Running
 
-Generate the csv with the tracks
+Run the recommendation system. `<user_id>` is Id of the user. `<num_of_recomm>` is the quantity of tracks that will be recommended for the specified `<user_id>`.
 ```bash
-$ python music.py
+$ python music.py <user_id> <num_of_recomm>
 ```
 
-Generate the persons on Neo4j
+Populate the Neo4j database (must start the Neo4j database before running this command).
 ```bash
-$ python -m src.neo4j.create_persons
+$ python music.py populate
 ```
 
-Generate the musics on Neo4j (must generate the tracks csv before)
+Clean the Neo4j database (must start the Neo4j database before running this command).
+`Warning: restart the database after cleanup. This will reset the Id.`
 ```bash
-$ python -m src.neo4j.create_musics
+$ python music.py cleanup
 ```
-
 ## Folder Structure (changes will happen)
 
 - `data`: `provide description`.
