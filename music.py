@@ -31,8 +31,7 @@ def display(recomm):
     and coefficient of acceptance.
     """
     headers = ['Track', 'Artist', '[Similarity + Popularity] Coefficient']
-    data = np.random.randn(10, 3)
-    tp.table(data, headers)
+    tp.table(recomm, headers)
 
 def populate_database():
     MusicCreator.run()
@@ -45,7 +44,7 @@ def clean_database():
 def main():
     """
     This function parses the arguments and calls :py:func:`recommend` to get the track
-    recommendations, then calls :py:func:`display` to display the the recommendations.
+    recommendations, then calls :py:func:`display` to display the recommendations.
     """
     args = docopt(__doc__)
     if (args['populate'] == True):
@@ -54,7 +53,7 @@ def main():
         clean_database()
     else:
         try:
-            recomm = recommend(int(args['<user_id>']), int(args['<num_of_recomm>']))
+            recomm = Recommender(int(args['<user_id>']), int(args['<num_of_recomm>'])).recommend_for()
             display(recomm)
         except ValueError as ex:
             print("Invalid command: <user_id> and <num_of_recomm> are integers.")

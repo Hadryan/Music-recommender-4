@@ -43,7 +43,7 @@ class ConnectionProvider:
     def create_edge_to_random_music(person):
         r = random()
         if(r > 0.7):
-            music_id = randrange(200, 300)
+            music_id = randrange(0, 100)
             cypher = f'MATCH (origin: Person {person.params_str()}), (destiny: Music) where id(destiny)={music_id}\n'
             cypher += f'CREATE (origin)-[r: Liked]->(destiny)'
             ConnectionProvider.getDb().run(cypher)
@@ -52,7 +52,7 @@ class ConnectionProvider:
             ConnectionProvider.getDb().run(cypher)
 
         for _ in range(randrange(1, 10)):
-            music_id = randrange(200, 300)
+            music_id = randrange(0, 100)
             cypher = f'MATCH (origin: Person {person.params_str()}), (destiny: Music) where id(destiny)={music_id}\n'
             cypher += f'CREATE (origin)-[r: Listened {Listened(randrange(1, 5)).params_str()}]->(destiny)'
             ConnectionProvider.getDb().run(cypher)

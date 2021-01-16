@@ -33,11 +33,11 @@ $ pip freeze > requirements.txt
 
 1. Create a Graph Database at `bolt://localhost:11003` with the password: `123mudar`
 
-2. Create a database with the name: `musicrecommender`
+2. Change the default database name from `neo4j` to `musicrecommender`
 
 ## Running
 
-Run the recommendation system. `<user_id>` is Id of the user. `<num_of_recomm>` is the quantity of tracks that will be recommended for the specified `<user_id>`.
+Run the recommendation system. `<user_id>` is the id of the user (provided by your Neo4J database). `<num_of_recomm>` is the quantity of tracks that will be recommended for the specified `<user_id>`.
 ```bash
 $ python music.py <user_id> <num_of_recomm>
 ```
@@ -48,7 +48,8 @@ $ python music.py populate
 ```
 
 Clean the Neo4j database (must start the Neo4j database before running this command).
-`Warning: restart the database after cleanup. This will reset the Id.`
+
+`Warning: restart the database after cleanup. This will reset the node ids provided by Neo4j.`
 ```bash
 $ python music.py cleanup
 ```
