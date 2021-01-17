@@ -1,9 +1,6 @@
 from neo4j import GraphDatabase
 from .neo4j.connection_provider import ConnectionProvider
 from .process.popularity import Popularity
-import copy
-import itertools
-
 
 class Recommender:
     """
@@ -24,6 +21,12 @@ class Recommender:
             coefs.append(o[4])
             tracks.append([o[1], o[2]])
         return (ids, coefs, tracks)
+
+    def takeThird(self, elem):
+        """
+        Used for sorting the list.
+        """
+        return elem[2]        
     
     def recommend_for(self):
         """
@@ -41,6 +44,7 @@ class Recommender:
         recomm = [(coef * 0.7) + (pop_coef * 0.3) for coef, pop_coef in zip(coefs, popularity_coefs)]
         for i in range (self.n_recomm):
             tracks_info[i].append(recomm[i])
+        tracks_info.sort(key=self.takeThird, reverse=True)
         return tracks_info
 
     def query_music(self, music_id):
@@ -53,8 +57,6 @@ class Recommender:
         """
         query = f'MATCH (m1: Music)-[r:Similarity]- (m2: Music) where id(m1)={music_id} return id(m2), m2.name, m2.artist, m2.popularity, r.weight order by r.weight desc limit {self.n_recomm}'
         tracks = ConnectionProvider.getDb().run(query)
-        # for track in tracks:
-        #     print(track)
         return tracks
 
     def query_most_listened(self):

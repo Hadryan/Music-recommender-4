@@ -12,7 +12,7 @@ from src.neo4j.create_musics import MusicCreator
 from src.neo4j.create_persons import PersonCreator
 from src.neo4j.create_edges import EdgeCreator
 from src.neo4j.connection_provider import ConnectionProvider
-import numpy as np
+
 
 def recommend(user_id, num_of_recs):
     """

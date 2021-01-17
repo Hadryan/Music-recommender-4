@@ -20,7 +20,7 @@ class Popularity:
         self.mean = np.mean(musics_listened_popularity)
         self.std = np.std(musics_listened_popularity)
         self.max = abs(self.__zscore(0 if self.mean > 0.5 else 1))
-        # print(musics_listened_popularity, musics_popularity)        
+        # print(musics_listened_popularity, musics_popularity)
         # print(self.mean, self.std)
         results = [self.__zscore(music) for music in musics_popularity]
         return list(map(self.__normalize, results))
